@@ -58,26 +58,44 @@ Webcam: C922 Pro Stream Webcam
 
 **Key Findings** 
 
-- Putting more images per class, having imbalanced classes for multiclass problem will not have issue with accuracy. In fact, the more we insert data into these classes, the more accurate the model can be 
+- Putting more images per class, having imbalanced classes for multiclass problem will not have issue with accuracy. Verified with simple modelling, the more we insert data into these classes, the more accurate the model can be. 
+
+![image](https://user-images.githubusercontent.com/98629542/168134291-31333d94-f48e-4d6c-8102-c5f5c9d1393d.png)
+
 - VGG 16 uses high amount of memory space. 
 - MobileNetV2 was initially facing Validation loss freeze, but was rectified after retraining the whole model from the first convolution layer, as it was hypothesized that the convolution layer before a series of bottleneck layers might not be good enough to provide sufficient key features into these small tensor dimensions. 
+
+![image](https://user-images.githubusercontent.com/98629542/168134362-d2f7e677-f3d0-405d-b727-87efd41558c7.png) ![image](https://user-images.githubusercontent.com/98629542/168134655-53f891eb-aed8-4e95-8dc5-3bd1ba55c5fa.png)
+
+
 - Feature map was used to compare between MobileNetV2_pretrained weights model VS MobileNetV2_Unfrozen and retrained model, found that latter has better convolutions, giving more valuable output of features before feeding the information into bottleneck layers. 
+
+![image](https://user-images.githubusercontent.com/98629542/168134750-278dc1f6-3fd9-4944-a1d9-30f92919a436.png)
+
+
 - Created Live Webcam with two main features 
 	- Top 3 predictions of which class (To give users a sense of confidence level of how true the model is predicting the unseen data, ie. having top prediction prob being a Daun_sup is 90% while other two predictions are at 5% each, it shows how confident the model is at segregating the correct class from the other two wrong classes. 
 	- Overlayed one image following the top prediction layer. This is to help user compare with the predicted image vs the unseen data, to have a better gauge if the model is actually predicting it accurately aside from just referencing the probability score. 
 
 
+![image](https://user-images.githubusercontent.com/98629542/168134108-4189f28b-330c-447b-adf0-63f452ddf4cd.png)
 
 **Error Analysis** 
 
 More information can be found in the slides for error analysis for all 3 Models. 
 
+Final production model: `MobileNetV2` 
+![image](https://user-images.githubusercontent.com/98629542/168134845-9a0869d9-5b91-45a6-83d6-21ee6cec2a2a.png)
+![image](https://user-images.githubusercontent.com/98629542/168134860-c0cccbe3-ca21-4f2e-980b-393211eb6db6.png)
+
 
 ## Conclusions and Recommendations
 
 To have a good image classifier, it is very crucial we do proper data cleaning, including taking the right photos and ensuring only features of the vegetables and do not introduce too much variables that may seem important to the model, for example including too much of the hand while taking the photos. 
+
 In global context, when we are dealing with image gathering through cloud or online spaces, we have to be mindful of filtering away pictures that has incriminating features like the label names it self,ie. taking pictures of cabbages with the background indicating labels: 'Cabbage'. 
-Also, retraining models may consist a few iterations. It helps when we better understand the model we pick for transfer learning as not all models are good for our specific use cases, like vegetables. 
+
+Also, retraining models may consist a few iterations. It helps when we better understand the model we pick for transfer learning as not all models are good for our specific use cases, like vegetables. 
 We may need look at the pre-trained images used for the model, and understand the features captured. 
 We also have to consider the memory usage if we are thinking of using these models in our phones, in this case, MobileNetV2 was a best pick for production model showing high accuracy scores and good prediction without using much memory space. 
 
