@@ -33,7 +33,7 @@ a chance to better identify vegetables they are unsure off. It could vary with u
 Computer vision nowadays rely on deep learning techniques and neural network, hence there is bound to have huge processing capabilities. The details below are libraries used and hardware used for this project. 
 
 
-`These were some of the crucial libraries used`
+`Libraries used`
 
 Tensor Flow Version: 2.1.0
 Keras Version: 2.2.4-tf
